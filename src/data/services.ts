@@ -6,7 +6,6 @@ export interface ServiceArea {
 export interface ServicePillar {
   title: string;
   slug: string;
-  number: string;
   description: string;
   areas: ServiceArea[];
 }
@@ -15,7 +14,6 @@ export const services: ServicePillar[] = [
   {
     title: "Consultoría",
     slug: "consultoria",
-    number: "01",
     description: "Convertimos retos técnicos en decisiones claras y accionables.",
     areas: [
       { title: "Estudios y diseños", description: "Bases técnicas para planear con precisión." },
@@ -26,7 +24,6 @@ export const services: ServicePillar[] = [
   {
     title: "Construcción",
     slug: "construccion",
-    number: "02",
     description: "Construimos infraestructura que funciona hoy y permanece mañana.",
     areas: [
       { title: "Obras civiles", description: "Ejecución rigurosa para activos durables." },
@@ -37,7 +34,6 @@ export const services: ServicePillar[] = [
   {
     title: "Interventoría",
     slug: "interventoria",
-    number: "03",
     description: "Cuidamos el estándar técnico, contractual y humano de cada obra.",
     areas: [
       { title: "Supervisión técnica", description: "Verificación permanente de calidad y avance." },
@@ -48,7 +44,6 @@ export const services: ServicePillar[] = [
   {
     title: "Alquiler",
     slug: "alquiler",
-    number: "04",
     description: "Disponibilizamos equipos confiables para que la operación no se detenga.",
     areas: [
       { title: "Maquinaria amarilla", description: "Equipos para excavación y movimiento de material." },

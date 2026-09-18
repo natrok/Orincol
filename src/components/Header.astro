@@ -72,7 +72,6 @@ function slugify(text: string): string {
                     <div class="mega-menu__columns">
                       {services.map((service) => (
                         <div class="mega-menu__column">
-                          <p class="mega-menu__column-number">{service.number}</p>
                           <a class="mega-menu__column-title" href={`/servicios/${service.slug}/`}>
                             {megaMenuLabels[service.slug] ?? service.title}
                           </a>
@@ -260,13 +259,6 @@ function slugify(text: string): string {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: var(--space-8);
-  }
-
-  .mega-menu__column-number {
-    margin: 0 0 var(--space-2);
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
-    color: var(--color-accent);
   }
 
   .mega-menu__column-title {
