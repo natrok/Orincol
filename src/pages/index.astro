@@ -1,11 +1,17 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import Hero from "../components/Hero.astro";
+import ServicesSection from "../components/ServicesSection.astro";
+import FeaturedProjects from "../components/FeaturedProjects.astro";
+import CallToAction from "../components/CallToAction.astro";
 ---
 
-<BaseLayout>
-  <section class="section container">
-    <p>ORINCOL S.A.S.</p>
-    <h1>Ingeniería que construye futuro.</h1>
-    <p>Base digital en construcción para una empresa colombiana de ingeniería civil e infraestructura.</p>
-  </section>
+<BaseLayout
+  title="ORINCOL S.A.S. | Ingeniería civil e infraestructura"
+  description="ORINCOL S.A.S. diseña, construye y supervisa infraestructura para un mejor futuro en Colombia."
+>
+  <Hero />
+  <ServicesSection />
+  <FeaturedProjects />
+  <CallToAction />
 </BaseLayout>

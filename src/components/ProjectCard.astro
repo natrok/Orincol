@@ -1,0 +1,73 @@
+---
+import type { Project } from "../data/projects";
+
+interface Props {
+  project: Project;
+  variant?: "featured" | "secondary";
+}
+
+const { project, variant = "secondary" } = Astro.props;
+---
+
+<article class:list={["project-card", `project-card--${variant}`]}>
+  <a class="project-card__image-link" href={`/proyectos/${project.slug}/`}>
+    <img src={project.image} alt={project.title} loading="lazy" />
+  </a>
+  <div class="project-card__meta">
+    <p>{project.category} <span aria-hidden="true">/</span> {project.location}</p>
+    <h3><a href={`/proyectos/${project.slug}/`}>{project.title}</a></h3>
+    <p class="project-card__summary">{project.summary}</p>
+  </div>
+</article>
+
+<style>
+  .project-card__image-link {
+    display: block;
+    overflow: hidden;
+    background: var(--color-surface);
+  }
+
+  .project-card img {
+    width: 100%;
+    aspect-ratio: 1.35;
+    object-fit: cover;
+    transition: transform 500ms cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+
+  .project-card:hover img {
+    transform: scale(1.04);
+  }
+
+  .project-card--featured img {
+    aspect-ratio: 1.55;
+  }
+
+  .project-card__meta {
+    padding-top: var(--space-4);
+  }
+
+  .project-card__meta > p:first-child {
+    margin: 0;
+    color: var(--color-accent);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .project-card h3 {
+    margin: var(--space-3) 0 0;
+    font-size: var(--text-xl);
+    line-height: 1.15;
+  }
+
+  .project-card h3 a {
+    text-decoration: none;
+  }
+
+  .project-card__summary {
+    max-width: 27rem;
+    margin: var(--space-3) 0 0;
+    color: var(--color-muted);
+  }
+</style>

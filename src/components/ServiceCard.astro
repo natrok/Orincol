@@ -1,0 +1,72 @@
+---
+import type { ServicePillar } from "../data/services";
+
+interface Props {
+  service: ServicePillar;
+}
+
+const { service } = Astro.props;
+---
+
+<article class="service-card">
+  <div class="service-card__body">
+    <h3><a href={`/servicios/${service.slug}/`}>{service.title}</a></h3>
+    <p>{service.description}</p>
+    <a class="service-card__link" href={`/servicios/${service.slug}/`}>
+      Explorar servicio <span aria-hidden="true">↗</span>
+    </a>
+  </div>
+</article>
+
+<style>
+  .service-card {
+    min-height: 17rem;
+    padding: var(--space-6) 0;
+    border-top: 1px solid var(--color-border);
+    transition: padding 220ms ease, border-color 220ms ease;
+  }
+
+  .service-card:hover {
+    padding-inline: var(--space-4);
+    border-color: var(--color-accent);
+    background: var(--color-accent-soft);
+  }
+
+  .service-card__body {
+    min-width: 0;
+  }
+
+  .service-card h3 {
+    margin: 0;
+    font-size: var(--text-xl);
+    letter-spacing: -0.03em;
+  }
+
+  .service-card h3 a {
+    text-decoration: none;
+  }
+
+  .service-card__body > p {
+    max-width: 18rem;
+    margin: var(--space-6) 0 0;
+    color: var(--color-muted);
+  }
+
+  .service-card__link {
+    display: inline-flex;
+    gap: var(--space-3);
+    margin-top: var(--space-8);
+    font-size: var(--text-sm);
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .service-card__link span {
+    color: var(--color-accent);
+    transition: transform 180ms ease;
+  }
+
+  .service-card:hover .service-card__link span {
+    transform: translate(0.2rem, -0.2rem);
+  }
+</style>
