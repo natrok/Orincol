@@ -1,0 +1,44 @@
+---
+interface Props {
+  eyebrow: string;
+  title: string;
+  description: string;
+}
+
+const { eyebrow, title, description } = Astro.props;
+---
+
+<section class="internal-hero">
+  <div class="container">
+    <p class="eyebrow">{eyebrow}</p>
+    <h1>{title}</h1>
+    <p class="internal-hero__description">{description}</p>
+  </div>
+</section>
+
+<style>
+  .internal-hero {
+    padding: clamp(7rem, 13vw, 11rem) 0 clamp(4rem, 8vw, 7rem);
+    background: var(--color-primary);
+    color: var(--color-bg);
+  }
+
+  .internal-hero h1 {
+    max-width: 14ch;
+    margin: 0;
+    font-size: var(--text-3xl);
+    letter-spacing: -0.06em;
+    line-height: var(--leading-tight);
+  }
+
+  .internal-hero .eyebrow {
+    color: var(--color-accent-soft);
+  }
+
+  .internal-hero__description {
+    max-width: 38rem;
+    margin: var(--space-8) 0 0;
+    color: rgb(246 245 241 / 78%);
+    font-size: var(--text-lg);
+  }
+</style>

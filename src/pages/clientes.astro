@@ -1,0 +1,25 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import InternalHero from "../components/InternalHero.astro";
+
+const clients = ["CLIENTE 01", "CLIENTE 02", "CLIENTE 03", "CLIENTE 04", "CLIENTE 05", "CLIENTE 06"];
+---
+
+<BaseLayout title="Clientes | ORINCOL S.A.S." description="Clientes y aliados de ORINCOL S.A.S.">
+  <InternalHero eyebrow="Clientes" title="Relaciones construidas con confianza." description="Un espacio preparado para presentar las organizaciones que han confiado en el trabajo de ORINCOL." />
+  <section class="clients section container" aria-labelledby="clients-title">
+    <div class="clients__heading"><p class="eyebrow">Confían en nuestro trabajo</p><h2 id="clients-title">Alianzas que hacen avanzar los proyectos.</h2></div>
+    <div class="clients__grid">{clients.map((client) => <div class="client-logo" aria-label={client}>{client}</div>)}</div>
+    <p class="clients__note">[DATOS PENDIENTES] Los logotipos y nombres de clientes se publicarán con autorización.</p>
+  </section>
+</BaseLayout>
+
+<style>
+  .clients__heading h2 { max-width: 14ch; margin: 0; font-size: var(--text-2xl); line-height: var(--leading-tight); letter-spacing: -.05em; }
+  .clients__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4); margin-top: var(--space-12); }
+  .client-logo { display: grid; min-height: 8rem; place-items: center; border: 1px solid var(--color-border); color: var(--color-muted); font-family: var(--font-mono); font-size: var(--text-sm); letter-spacing: .08em; }
+  .client-logo:hover { border-color: var(--color-accent); color: var(--color-primary); }
+  .clients__note { margin-top: var(--space-8); color: var(--color-muted); font-size: var(--text-sm); }
+  @media (max-width: 48rem) { .clients__grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 30rem) { .clients__grid { grid-template-columns: 1fr; } }
+</style>

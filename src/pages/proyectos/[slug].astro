@@ -1,0 +1,53 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import InternalHero from "../../components/InternalHero.astro";
+import CallToAction from "../../components/CallToAction.astro";
+import { projects } from "../../data/projects";
+
+export function getStaticPaths() {
+  return projects.map((project) => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+---
+
+<BaseLayout
+  title={`${project.title} | ORINCOL S.A.S.`}
+  description={`${project.title}. Proyecto de ejemplo de ORINCOL S.A.S.`}
+>
+  <InternalHero eyebrow={project.portfolioCategory} title={project.title} description={project.summary} />
+  <section class="project-detail section container">
+    <div class="project-detail__media">
+      <img src={project.image} alt={project.title} />
+    </div>
+    <div class="project-detail__content">
+      <p class="eyebrow">Ficha del proyecto</p>
+      <dl>
+        <div><dt>Categoría</dt><dd>{project.category}</dd></div>
+        <div><dt>Ubicación</dt><dd>{project.location}</dd></div>
+        <div><dt>Cliente</dt><dd>[DATOS PENDIENTES]</dd></div>
+        <div><dt>Estado</dt><dd>Proyecto de ejemplo</dd></div>
+      </dl>
+      <div class="project-detail__note">
+        <h2>Detalles técnicos</h2>
+        <p>[DATOS PENDIENTES] La información técnica, alcance, fechas, cliente y galería se incorporarán cuando sean validados por ORINCOL.</p>
+      </div>
+    </div>
+  </section>
+  <CallToAction />
+</BaseLayout>
+
+<style>
+  .project-detail { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(16rem, .8fr); gap: clamp(3rem, 8vw, 8rem); }
+  .project-detail__media img { width: 100%; aspect-ratio: 1.25; object-fit: cover; background: var(--color-surface); }
+  .project-detail__content dl { margin: 0; border-top: 1px solid var(--color-border); }
+  .project-detail__content dl div { display: flex; justify-content: space-between; gap: var(--space-4); padding: var(--space-4) 0; border-bottom: 1px solid var(--color-border); }
+  dt { color: var(--color-muted); } dd { margin: 0; text-align: right; }
+  .project-detail__note { margin-top: var(--space-12); }
+  .project-detail__note h2 { margin: 0; font-size: var(--text-xl); }
+  .project-detail__note p { color: var(--color-muted); }
+  @media (max-width: 48rem) { .project-detail { display: block; } .project-detail__content { margin-top: var(--space-12); } }
+</style>

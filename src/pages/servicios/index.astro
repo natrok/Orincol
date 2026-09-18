@@ -1,0 +1,36 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import InternalHero from "../../components/InternalHero.astro";
+import ServiceCard from "../../components/ServiceCard.astro";
+import { services } from "../../data/services";
+---
+
+<BaseLayout
+  title="Servicios | ORINCOL S.A.S."
+  description="Servicios de consultoría, construcción, interventoría y alquiler para proyectos de infraestructura."
+>
+  <InternalHero
+    eyebrow="Servicios ORINCOL"
+    title="Capacidad técnica para mover proyectos."
+    description="Integramos conocimiento, ejecución y control para acompañar cada etapa de una obra."
+  />
+  <section class="section container service-index" aria-labelledby="service-index-title">
+    <div>
+      <p class="eyebrow">Nuestros pilares</p>
+      <h2 id="service-index-title">Cuatro formas de aportar valor.</h2>
+    </div>
+    <div class="service-index__list">
+      {services.map((service) => <ServiceCard service={service} />)}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .service-index { display: grid; grid-template-columns: minmax(14rem, .7fr) minmax(0, 1.3fr); gap: clamp(3rem, 9vw, 9rem); }
+  .service-index h2 { max-width: 11ch; margin: 0; font-size: var(--text-2xl); line-height: var(--leading-tight); letter-spacing: -.05em; }
+  .service-index__list { margin-top: -.5rem; }
+  @media (max-width: 48rem) {
+    .service-index { display: block; }
+    .service-index__list { margin-top: var(--space-12); }
+  }
+</style>

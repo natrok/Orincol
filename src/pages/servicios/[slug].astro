@@ -1,0 +1,64 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import InternalHero from "../../components/InternalHero.astro";
+import RelatedProjects from "../../components/RelatedProjects.astro";
+import CallToAction from "../../components/CallToAction.astro";
+import { services } from "../../data/services";
+
+export function getStaticPaths() {
+  return services.map((service) => ({
+    params: { slug: service.slug },
+    props: { service },
+  }));
+}
+
+const { service } = Astro.props;
+---
+
+<BaseLayout
+  title={`${service.title} | ORINCOL S.A.S.`}
+  description={service.description}
+>
+  <InternalHero eyebrow="Servicio ORINCOL" title={service.title} description={service.description} />
+  <section class="service-detail section container" aria-labelledby="capacity-title">
+    <div class="service-detail__capacity">
+      <p class="eyebrow">Nuestra capacidad</p>
+      <h2 id="capacity-title">Experiencia técnica para decidir y ejecutar mejor.</h2>
+      <p>
+        Acompañamos proyectos de infraestructura con equipos coordinados, criterios claros y una lectura responsable de cada contexto.
+        <strong>[DATOS PENDIENTES]</strong>
+      </p>
+    </div>
+    <div>
+      <p class="eyebrow">Áreas de especialización</p>
+      <div class="specialization-grid">
+        {service.areas.map((area, index) => (
+          <article class="specialization">
+            <span>{String(index + 1).padStart(2, "0")}</span>
+            <h3>{area.title}</h3>
+            <p>{area.description}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+  <RelatedProjects category={service.title} />
+  <CallToAction />
+</BaseLayout>
+
+<style>
+  .service-detail { display: grid; grid-template-columns: minmax(14rem, .8fr) minmax(0, 1.2fr); gap: clamp(3rem, 9vw, 9rem); }
+  .service-detail h2 { max-width: 13ch; margin: 0; font-size: var(--text-2xl); line-height: var(--leading-tight); letter-spacing: -.05em; }
+  .service-detail__capacity > p:last-child { max-width: 30rem; margin-top: var(--space-8); color: var(--color-muted); }
+  .service-detail strong { display: block; margin-top: var(--space-4); color: var(--color-accent); font-size: var(--text-sm); }
+  .specialization-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0 var(--space-8); border-top: 1px solid var(--color-border); }
+  .specialization { padding: var(--space-6) 0; border-bottom: 1px solid var(--color-border); }
+  .specialization span { color: var(--color-accent); font-family: var(--font-mono); font-size: var(--text-xs); }
+  .specialization h3 { margin: var(--space-6) 0 var(--space-2); font-size: var(--text-lg); }
+  .specialization p { margin: 0; color: var(--color-muted); font-size: var(--text-sm); }
+  @media (max-width: 48rem) {
+    .service-detail { display: block; }
+    .service-detail > div + div { margin-top: var(--space-12); }
+  }
+  @media (max-width: 30rem) { .specialization-grid { grid-template-columns: 1fr; } }
+</style>
