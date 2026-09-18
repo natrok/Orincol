@@ -1,0 +1,27 @@
+.services {
+  display: grid;
+  grid-template-columns: minmax(14rem, 0.75fr) minmax(0, 1.25fr);
+  gap: clamp(3rem, 9vw, 10rem);
+}
+
+.services h2 {
+  max-width: 10ch;
+  margin: 0;
+  font-size: var(--text-2xl);
+  letter-spacing: -0.05em;
+  line-height: var(--leading-tight);
+}
+
+.services .text-link {
+  margin-top: var(--space-12);
+}
+
+@media (max-width: 48rem) {
+  .services {
+    display: block;
+  }
+
+  .services__list {
+    margin-top: var(--space-12);
+  }
+}
