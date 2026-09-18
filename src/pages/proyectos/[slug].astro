@@ -2,6 +2,7 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import InternalHero from "../../components/InternalHero.astro";
 import CallToAction from "../../components/CallToAction.astro";
+import { Image } from "astro:assets";
 import { projects } from "../../data/projects";
 
 export function getStaticPaths() {
@@ -21,7 +22,7 @@ const { project } = Astro.props;
   <InternalHero eyebrow={project.portfolioCategory} title={project.title} description={project.summary} />
   <section class="project-detail section container">
     <div class="project-detail__media">
-      <img src={project.image} alt={project.title} />
+      <Image src={project.image} alt={project.title} loading="eager" decoding="async" />
     </div>
     <div class="project-detail__content">
       <p class="eyebrow">Ficha del proyecto</p>

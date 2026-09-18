@@ -9,6 +9,7 @@
 @import "./featured-projects.css";
 @import "./project-card.css";
 @import "./call-to-action.css";
+@import "./contact-form.css";
 
 *,
 *::before,

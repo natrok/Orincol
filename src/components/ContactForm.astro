@@ -1,0 +1,92 @@
+<form class="contact-form" data-contact-form data-state="idle" novalidate>
+  <div class="contact-form__fields">
+    <label class="contact-form__field contact-form__full">
+      <span>Nombre <b aria-hidden="true">*</b></span>
+      <input name="name" type="text" autocomplete="name" required aria-required="true" />
+      <small data-error-for="name"></small>
+    </label>
+     <!-- <label>
+      <span>Empresa</span>
+      <input name="company" type="text" autocomplete="organization" />
+    </label>  -->
+    <label class="contact-form__field">
+      <span>Email <b aria-hidden="true">*</b></span>
+      <input name="email" type="email" autocomplete="email" required aria-required="true" />
+      <small data-error-for="email"></small>
+    </label>
+    <label class="contact-form__field">
+      <span>Teléfono</span>
+      <input name="phone" type="tel" autocomplete="tel" />
+      <small data-error-for="phone"></small>
+    </label>
+    <label class="contact-form__field contact-form__full">
+      <span>Servicio de interés <b aria-hidden="true">*</b></span>
+      <select name="service" required aria-required="true">
+        <option value="">Selecciona una opción</option>
+        <option>Consultoría</option>
+        <option>Construcción</option>
+        <option>Interventoría</option>
+        <option>Alquiler</option>
+        <option>Información</option>
+      </select>
+      <small data-error-for="service"></small>
+    </label>
+    <label class="contact-form__field contact-form__full">
+      <span>Mensaje <b aria-hidden="true">*</b></span>
+      <textarea name="message" rows="6" required aria-required="true"></textarea>
+      <small data-error-for="message"></small>
+    </label>
+  </div>
+  <label class="contact-form__privacy">
+    <input name="privacy" type="checkbox" required aria-required="true" />
+    <span>Acepto el tratamiento de mis datos personales según la política de privacidad.</span>
+  </label>
+  <p class="contact-form__status" data-form-status role="status" aria-live="polite"></p>
+  <button class="button button--accent" type="submit" data-submit>Enviar solicitud <span aria-hidden="true">↗</span></button>
+</form>
+
+<script>
+  const forms = document.querySelectorAll<HTMLFormElement>("[data-contact-form]");
+  forms.forEach((form) => {
+    const status = form.querySelector<HTMLElement>("[data-form-status]");
+    const submit = form.querySelector<HTMLButtonElement>("[data-submit]");
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      form.querySelectorAll<HTMLElement>("[data-error-for]").forEach((element) => (element.textContent = ""));
+      if (!form.checkValidity()) {
+        form.querySelectorAll<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>("[required]").forEach((field) => {
+          field.removeAttribute("aria-invalid");
+          if (!field.validity.valid) {
+            const error = form.querySelector<HTMLElement>(`[data-error-for="${field.name}"]`);
+            if (error) error.textContent = field.name === "email" ? "Introduce un email válido." : "Este campo es obligatorio.";
+            field.setAttribute("aria-invalid", "true");
+          }
+        });
+        status?.setAttribute("data-state", "error");
+        if (status) status.textContent = "Revisa los campos marcados antes de continuar.";
+        form.querySelector<HTMLElement>("[aria-invalid='true']")?.focus();
+        return;
+      }
+      submit?.setAttribute("disabled", "true");
+      if (submit) submit.textContent = "Enviando…";
+      status?.setAttribute("data-state", "loading");
+      if (status) status.textContent = "Preparando tu solicitud…";
+      try {
+        // Replace this simulation with a POST to the future Resend-backed endpoint.
+        await new Promise((resolve) => setTimeout(resolve, 650));
+        form.dataset.state = "success";
+        status?.setAttribute("data-state", "success");
+        if (status) status.textContent = "Solicitud recibida. Te contactaremos cuando el canal de correo esté conectado.";
+        form.reset();
+        form.querySelectorAll("[aria-invalid]").forEach((field) => field.removeAttribute("aria-invalid"));
+      } catch {
+        form.dataset.state = "error";
+        status?.setAttribute("data-state", "error");
+        if (status) status.textContent = "No pudimos procesar la solicitud. Inténtalo de nuevo.";
+      } finally {
+        submit?.removeAttribute("disabled");
+        if (submit) submit.innerHTML = 'Enviar solicitud <span aria-hidden="true">↗</span>';
+      }
+    });
+  });
+</script>

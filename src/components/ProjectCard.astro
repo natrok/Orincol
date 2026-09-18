@@ -1,5 +1,6 @@
 ---
 import type { Project } from "../data/projects";
+import { Image } from "astro:assets";
 
 interface Props {
   project: Project;
@@ -11,7 +12,7 @@ const { project, variant = "secondary" } = Astro.props;
 
 <article class:list={["project-card", `project-card--${variant}`]}>
   <a class="project-card__image-link" href={`/proyectos/${project.slug}/`}>
-    <img src={project.image} alt={project.title} loading="lazy" />
+    <Image src={project.image} alt={project.title} loading="lazy" decoding="async" />
   </a>
   <div class="project-card__meta">
     <p>{project.category} <span aria-hidden="true">/</span> {project.location}</p>

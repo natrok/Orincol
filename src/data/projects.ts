@@ -16,7 +16,7 @@ export interface Project {
   category: ProjectCategory;
   portfolioCategory: PortfolioCategory;
   location: string;
-  image: string;
+  image: ImageMetadata;
   summary: string;
   isExample: true;
 }
@@ -28,7 +28,7 @@ export const projects: Project[] = [
     category: "Construcción",
     portfolioCategory: "Edificaciones",
     location: "Cundinamarca, Colombia",
-    image: "/images/projects/centro-logistico.svg",
+    image: centroLogistico,
     summary: "Estructura y urbanismo para una operación logística de alto desempeño.",
     isExample: true,
   },
@@ -38,7 +38,7 @@ export const projects: Project[] = [
     category: "Interventoría",
     portfolioCategory: "Vías",
     location: "Antioquia, Colombia",
-    image: "/images/projects/corredor-vial.svg",
+    image: corredorVial,
     summary: "Seguimiento técnico y control de calidad para conectar comunidades.",
     isExample: true,
   },
@@ -48,7 +48,7 @@ export const projects: Project[] = [
     category: "Consultoría",
     portfolioCategory: "Obras hidráulicas",
     location: "Valle del Cauca, Colombia",
-    image: "/images/projects/diagnostico.svg",
+    image: diagnostico,
     summary: "Lectura técnica del activo para priorizar inversiones y mantenimiento.",
     isExample: true,
   },
@@ -58,8 +58,13 @@ export const projects: Project[] = [
     category: "Alquiler",
     portfolioCategory: "Vías",
     location: "Bogotá D.C., Colombia",
-    image: "/images/projects/equipos.svg",
+    image: equipos,
     summary: "Maquinaria disponible para mantener el ritmo de cada frente de trabajo.",
     isExample: true,
   },
 ];
+import type { ImageMetadata } from "astro";
+import centroLogistico from "../assets/projects/centro-logistico.svg";
+import corredorVial from "../assets/projects/corredor-vial.svg";
+import diagnostico from "../assets/projects/diagnostico.svg";
+import equipos from "../assets/projects/equipos.svg";

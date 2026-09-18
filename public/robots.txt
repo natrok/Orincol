@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://orincol.com/sitemap-index.xml

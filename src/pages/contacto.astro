@@ -1,0 +1,33 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import InternalHero from "../components/InternalHero.astro";
+import ContactForm from "../components/ContactForm.astro";
+---
+
+<BaseLayout title="Contacto | ORINCOL S.A.S." description="Contacta a ORINCOL S.A.S. para presentar tu proyecto de infraestructura.">
+  <InternalHero eyebrow="Contacto" title="Hablemos de su próximo proyecto." description="Cuéntanos qué necesitas construir, supervisar o poner en marcha." />
+  <section class="contact section container" aria-labelledby="contact-title">
+    <div class="contact__details">
+      <p class="eyebrow">Datos corporativos</p>
+      <h2 id="contact-title">Una conversación clara es un buen comienzo.</h2>
+      <dl>
+        <div><dt>Ubicación</dt><dd>Bogotá D.C., Colombia</dd></div>
+        <div><dt>Email</dt><dd><a href="mailto:info@orincol.com">info@orincol.com</a></dd></div>
+        <div><dt>Teléfono</dt><dd>[DATOS PENDIENTES]</dd></div>
+      </dl>
+      <div class="contact__map" role="img" aria-label="Mapa de ubicación pendiente de integración">Mapa de ubicación<br /><small>[MAPA PENDIENTE]</small></div>
+    </div>
+    <ContactForm />
+  </section>
+</BaseLayout>
+
+<style>
+  .contact { display: grid; grid-template-columns: minmax(15rem, .75fr) minmax(0, 1.25fr); gap: clamp(3rem, 9vw, 9rem); }
+  .contact h2 { max-width: 13ch; margin: 0; font-size: var(--text-2xl); line-height: var(--leading-tight); letter-spacing: -.05em; }
+  .contact dl { margin: var(--space-12) 0 0; border-top: 1px solid var(--color-border); }
+  .contact dl div { display: flex; justify-content: space-between; gap: var(--space-4); padding: var(--space-4) 0; border-bottom: 1px solid var(--color-border); font-size: var(--text-sm); }
+  .contact dt { color: var(--color-muted); } .contact dd { margin: 0; text-align: right; }
+  .contact__map { display: grid; min-height: 11rem; place-content: center; margin-top: var(--space-8); background: var(--color-surface); color: var(--color-muted); text-align: center; }
+  .contact__map small { color: var(--color-accent); font-family: var(--font-mono); }
+  @media (max-width: 48rem) { .contact { display: block; } .contact__form, .contact-form { margin-top: var(--space-12); } }
+</style>
