@@ -1,0 +1,29 @@
+.cta__inner {
+  max-width: 54rem;
+  padding: clamp(2.5rem, 7vw, 6rem);
+  background: var(--color-primary);
+  color: var(--color-bg);
+}
+
+.cta .eyebrow {
+  color: var(--color-accent-soft);
+}
+
+.cta h2 {
+  max-width: 15ch;
+  margin: 0;
+  font-size: var(--text-2xl);
+  letter-spacing: -0.05em;
+  line-height: var(--leading-tight);
+}
+
+.cta__inner > p:not(.eyebrow) {
+  max-width: 30rem;
+  margin: var(--space-6) 0 0;
+  color: rgb(246 245 241 / 72%);
+}
+
+.cta .button {
+  margin-top: var(--space-8);
+  padding: 0.9rem 1.25rem;
+}
