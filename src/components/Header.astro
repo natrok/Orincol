@@ -1,0 +1,445 @@
+---
+import { headerNavigation } from "../data/navigation";
+import { services } from "../data/services";
+import MobileMenu from "./MobileMenu.astro";
+
+interface Props {
+  /**
+   * When true, the header renders transparent (light text) at the top of the
+   * page and only gains a solid, blurred background once the user scrolls.
+   * Intended for pages with a full-bleed hero image/video behind the header.
+   */
+  transparent?: boolean;
+}
+
+const { transparent = false } = Astro.props;
+
+// Editorial labels used only in the mega menu column headings; the linked
+// slug/areas still come from the single source of truth in `data/services.ts`.
+const megaMenuLabels: Record<string, string> = {
+  consultoria: "Consultoría y Diseño",
+  construccion: "Construcción",
+  interventoria: "Interventoría",
+  alquiler: "Alquiler",
+};
+
+function slugify(text: string): string {
+  return text
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+}
+---
+
+<header class="site-header" id="site-header" data-transparent={transparent ? "true" : "false"}>
+  <div class="site-header__inner container">
+    <a href="/" class="site-header__logo" aria-label="ORINCOL — Ir al inicio">
+      ORINCOL
+    </a>
+
+    <nav class="site-header__nav" aria-label="Navegación principal">
+      <ul class="site-header__nav-list">
+        {
+          headerNavigation.map((item) =>
+            item.children ? (
+              <li class="site-header__nav-item has-mega" data-mega-item>
+                <button
+                  type="button"
+                  class="site-header__nav-link"
+                  aria-expanded="false"
+                  aria-controls="mega-servicios"
+                  data-mega-toggle
+                >
+                  {item.label}
+                  <svg class="site-header__chevron" width="10" height="6" viewBox="0 0 10 6" aria-hidden="true">
+                    <path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </button>
+                <div class="mega-menu" id="mega-servicios" data-mega-panel>
+                  <div class="mega-menu__inner container">
+                    <div class="mega-menu__intro">
+                      <p class="mega-menu__eyebrow">Servicios</p>
+                      <p class="mega-menu__description">
+                        Cuatro frentes de trabajo, un mismo estándar técnico ORINCOL.
+                      </p>
+                      <a class="mega-menu__cta" href="/servicios/">
+                        Ver todos los servicios
+                        <span aria-hidden="true">→</span>
+                      </a>
+                    </div>
+                    <div class="mega-menu__columns">
+                      {services.map((service) => (
+                        <div class="mega-menu__column">
+                          <p class="mega-menu__column-number">{service.number}</p>
+                          <a class="mega-menu__column-title" href={`/servicios/${service.slug}/`}>
+                            {megaMenuLabels[service.slug] ?? service.title}
+                          </a>
+                          <ul class="mega-menu__column-list">
+                            {service.areas.map((area) => (
+                              <li>
+                                <a href={`/servicios/${service.slug}/#${slugify(area.title)}`}>
+                                  {area.title}
+                                </a>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </li>
+            ) : (
+              <li class="site-header__nav-item">
+                <a class="site-header__nav-link" href={item.href}>
+                  {item.label}
+                </a>
+              </li>
+            )
+          )
+        }
+      </ul>
+    </nav>
+
+    <button
+      type="button"
+      class="site-header__toggle"
+      id="mobile-menu-toggle"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      aria-label="Abrir menú de navegación"
+    >
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+
+  <MobileMenu />
+</header>
+
+<style>
+  .site-header {
+    position: fixed;
+    inset-inline: 0;
+    top: 0;
+    z-index: 50;
+    background: rgb(246 245 241 / 92%);
+    backdrop-filter: blur(0.75rem);
+    -webkit-backdrop-filter: blur(0.75rem);
+    border-bottom: 1px solid var(--color-border);
+    color: var(--color-text);
+    transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
+  }
+
+  .site-header[data-transparent="true"] {
+    background: transparent;
+    border-bottom-color: transparent;
+    color: var(--color-bg);
+  }
+
+  .site-header[data-transparent="true"].is-scrolled {
+    background: rgb(246 245 241 / 92%);
+    border-bottom-color: var(--color-border);
+    color: var(--color-text);
+    box-shadow: var(--shadow-subtle);
+  }
+
+  .site-header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-6);
+    height: 4.5rem;
+  }
+
+  .site-header__logo {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--text-lg);
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .site-header__nav {
+    display: none;
+  }
+
+  .site-header__nav-list {
+    display: flex;
+    align-items: center;
+    gap: var(--space-8);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .site-header__nav-item {
+    position: static;
+  }
+
+  .site-header__nav-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    background: none;
+    border: none;
+    padding: var(--space-2) 0;
+    font-family: inherit;
+    font-size: var(--text-sm);
+    letter-spacing: 0.02em;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .site-header__chevron {
+    transition: transform 0.2s ease;
+  }
+
+  .has-mega[data-open="true"] .site-header__chevron {
+    transform: rotate(180deg);
+  }
+
+  /* Mega menu */
+  .mega-menu {
+    position: absolute;
+    inset-inline: 0;
+    top: 100%;
+    background: var(--color-bg);
+    border-bottom: 1px solid var(--color-border);
+    box-shadow: var(--shadow-subtle);
+    color: var(--color-text);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-0.5rem);
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+  }
+
+  .has-mega[data-open="true"] .mega-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .mega-menu__inner {
+    display: grid;
+    grid-template-columns: minmax(14rem, 18rem) 1fr;
+    gap: var(--space-16);
+    padding-block: var(--space-12);
+  }
+
+  .mega-menu__eyebrow {
+    margin: 0 0 var(--space-4);
+    font-size: var(--text-xs);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+  }
+
+  .mega-menu__description {
+    margin: 0 0 var(--space-6);
+    max-width: 22ch;
+    color: var(--color-muted);
+  }
+
+  .mega-menu__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 1px solid var(--color-accent);
+    padding-bottom: var(--space-1);
+  }
+
+  .mega-menu__columns {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-8);
+  }
+
+  .mega-menu__column-number {
+    margin: 0 0 var(--space-2);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--color-accent);
+  }
+
+  .mega-menu__column-title {
+    display: block;
+    margin-bottom: var(--space-4);
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: 700;
+    text-decoration: none;
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: var(--space-3);
+  }
+
+  .mega-menu__column-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .mega-menu__column-list a {
+    font-size: var(--text-sm);
+    color: var(--color-muted);
+    text-decoration: none;
+  }
+
+  .mega-menu__column-list a:hover,
+  .mega-menu__column-list a:focus-visible {
+    color: var(--color-text);
+    text-decoration: underline;
+  }
+
+  /* Mobile hamburger */
+  .site-header__toggle {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.3rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+  }
+
+  .site-header__toggle span {
+    display: block;
+    width: 1.5rem;
+    height: 0.11rem;
+    background: currentColor;
+    transition: transform 0.25s ease, opacity 0.2s ease;
+  }
+
+  .site-header__toggle[aria-expanded="true"] span:nth-child(1) {
+    transform: translateY(0.41rem) rotate(45deg);
+  }
+
+  .site-header__toggle[aria-expanded="true"] span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .site-header__toggle[aria-expanded="true"] span:nth-child(3) {
+    transform: translateY(-0.41rem) rotate(-45deg);
+  }
+
+  @media (min-width: 64rem) {
+    .site-header__nav {
+      display: block;
+    }
+
+    .site-header__nav-item {
+      position: relative;
+    }
+
+    .site-header__toggle {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  const header = document.getElementById("site-header");
+
+  const setScrolled = () => {
+    if (!header) return;
+    header.classList.toggle("is-scrolled", window.scrollY > 12);
+  };
+
+  setScrolled();
+  window.addEventListener("scroll", setScrolled, { passive: true });
+
+  // Mega menu open/close (click + hover + keyboard, closes on outside click / Escape).
+  const megaItems = document.querySelectorAll<HTMLLIElement>("[data-mega-item]");
+
+  megaItems.forEach((item) => {
+    const toggle = item.querySelector<HTMLButtonElement>("[data-mega-toggle]");
+    if (!toggle) return;
+
+    let closeTimeout: ReturnType<typeof setTimeout> | undefined;
+
+    const open = () => {
+      clearTimeout(closeTimeout);
+      item.setAttribute("data-open", "true");
+      toggle.setAttribute("aria-expanded", "true");
+    };
+
+    const close = () => {
+      item.setAttribute("data-open", "false");
+      toggle.setAttribute("aria-expanded", "false");
+    };
+
+    const scheduleClose = () => {
+      closeTimeout = setTimeout(close, 150);
+    };
+
+    toggle.addEventListener("click", () => {
+      const isOpen = item.getAttribute("data-open") === "true";
+      isOpen ? close() : open();
+    });
+
+    item.addEventListener("mouseenter", open);
+    item.addEventListener("mouseleave", scheduleClose);
+
+    item.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        close();
+        toggle.focus();
+      }
+    });
+  });
+
+  document.addEventListener("click", (event) => {
+    megaItems.forEach((item) => {
+      if (!item.contains(event.target as Node)) {
+        item.setAttribute("data-open", "false");
+        item.querySelector("[data-mega-toggle]")?.setAttribute("aria-expanded", "false");
+      }
+    });
+  });
+
+  // Mobile menu toggle
+  const mobileToggle = document.getElementById("mobile-menu-toggle");
+  const mobileMenu = document.getElementById("mobile-menu");
+
+  const closeMobileMenu = () => {
+    mobileToggle?.setAttribute("aria-expanded", "false");
+    mobileMenu?.setAttribute("data-open", "false");
+    document.body.style.removeProperty("overflow");
+  };
+
+  const openMobileMenu = () => {
+    mobileToggle?.setAttribute("aria-expanded", "true");
+    mobileMenu?.setAttribute("data-open", "true");
+    document.body.style.overflow = "hidden";
+  };
+
+  mobileToggle?.addEventListener("click", () => {
+    const isOpen = mobileToggle.getAttribute("aria-expanded") === "true";
+    isOpen ? closeMobileMenu() : openMobileMenu();
+  });
+
+  mobileMenu?.querySelector("[data-mobile-close]")?.addEventListener("click", closeMobileMenu);
+
+  mobileMenu?.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      closeMobileMenu();
+      mobileToggle?.focus();
+    }
+  });
+
+  document.addEventListener("astro:before-swap", closeMobileMenu);
+</script>
