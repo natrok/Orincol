@@ -1,0 +1,41 @@
+---
+import "../styles/global.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+  canonical?: string;
+}
+
+const {
+  title = "ORINCOL S.A.S. | Ingeniería que construye futuro",
+  description = "ORINCOL S.A.S. desarrolla soluciones de ingeniería civil e infraestructura en Colombia.",
+  canonical,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="theme-color" content="#203445" />
+    <link rel="canonical" href={canonical ?? Astro.url.href} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Saltar al contenido</a>
+    <header>
+      <slot name="header" />
+    </header>
+    <main id="main-content">
+      <slot />
+    </main>
+    <footer>
+      <slot name="footer" />
+    </footer>
+  </body>
+</html>
