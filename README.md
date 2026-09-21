@@ -30,7 +30,7 @@ npm run preview
 - `src/components/`: componentes Astro reutilizables, incluyendo `ContactForm.astro` y `SEO.astro`.
 - `src/data/`: navegación, servicios y proyectos tipados.
 - `src/pages/`: homepage, servicios, proyectos, nosotros, clientes y contacto.
-- `src/assets/projects/`: imágenes SVG locales procesadas con `astro:assets`.
+- `src/assets/projects/<slug>/`: portadas de cada proyecto procesadas con `astro:assets`.
 - `src/styles/`: tokens y estilos por componente.
 
 ## Sustituir placeholders

@@ -1,6 +1,6 @@
 .cta__inner {
-  max-width: 54rem;
-  padding: clamp(2.5rem, 7vw, 6rem);
+
+  padding: clamp(2.5rem, 7vw, 2.5rem);
   background: var(--color-primary);
   color: var(--color-bg);
 }
@@ -19,7 +19,7 @@
 
 .cta__inner > p:not(.eyebrow) {
   max-width: 30rem;
-  margin: var(--space-6) 0 0;
+  margin: var(--space-) 0 0;
   color: rgb(246 245 241 / 72%);
 }
 

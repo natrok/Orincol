@@ -17,15 +17,15 @@
   --text-sm: 0.875rem;
   --text-base: 1rem;
   --text-lg: 1.125rem;
-  --text-xl: clamp(1.5rem, 2vw, 2rem);
-  --text-2xl: clamp(2rem, 4vw, 3.5rem);
+  --text-xl: clamp(1.5rem, 3vw, 3.5rem);
+  --text-2xl: clamp(2rem, 4vw, 4.5rem);
   --text-3xl: clamp(2.75rem, 7vw, 6rem);
   --leading-tight: 1.08;
   --leading-body: 1.65;
 
   --container: 76rem;
   --gutter: clamp(1.25rem, 4vw, 4rem);
-  --spacing-section: clamp(4.5rem, 10vw, 9rem);
+  --spacing-section: clamp(4.5rem, 5vw, 9rem);
   --space-1: 0.25rem;
   --space-2: 0.5rem;
   --space-3: 0.75rem;

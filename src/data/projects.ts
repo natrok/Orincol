@@ -23,48 +23,48 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    title: "[PROYECTO DE EJEMPLO] Centro logístico del norte",
-    slug: "centro-logistico-del-norte",
+    title: "[PROYECTO DE EJEMPLO] Sistema de alcantarillado",
+    slug: "sistema-de-alcantarillado",
+    category: "Construcción",
+    portfolioCategory: "Obras hidráulicas",
+    location: "[DATOS PENDIENTES]",
+    image: alcantarillado,
+    summary: "Registro visual de una intervención de infraestructura sanitaria.",
+    isExample: true,
+  },
+  {
+    title: "[PROYECTO DE EJEMPLO] Vías y espacio público",
+    slug: "vias-y-espacio-publico",
+    category: "Construcción",
+    portfolioCategory: "Vías",
+    location: "[DATOS PENDIENTES]",
+    image: viasEspacioPublico,
+    summary: "Registro visual de trabajos de pavimentación y espacio público.",
+    isExample: true,
+  },
+  {
+    title: "[PROYECTO DE EJEMPLO] Edificaciones",
+    slug: "edificaciones",
     category: "Construcción",
     portfolioCategory: "Edificaciones",
-    location: "Cundinamarca, Colombia",
-    image: centroLogistico,
-    summary: "Estructura y urbanismo para una operación logística de alto desempeño.",
+    location: "[DATOS PENDIENTES]",
+    image: edificaciones,
+    summary: "Registro visual de ejecución de cimentaciones y estructuras.",
     isExample: true,
   },
   {
-    title: "[PROYECTO DE EJEMPLO] Corredor vial sostenible",
-    slug: "corredor-vial-sostenible",
-    category: "Interventoría",
-    portfolioCategory: "Vías",
-    location: "Antioquia, Colombia",
-    image: corredorVial,
-    summary: "Seguimiento técnico y control de calidad para conectar comunidades.",
-    isExample: true,
-  },
-  {
-    title: "[PROYECTO DE EJEMPLO] Diagnóstico de infraestructura",
-    slug: "diagnostico-de-infraestructura",
-    category: "Consultoría",
+    title: "[PROYECTO DE EJEMPLO] Estructura hidráulica",
+    slug: "estructura-hidraulica",
+    category: "Construcción",
     portfolioCategory: "Obras hidráulicas",
-    location: "Valle del Cauca, Colombia",
-    image: diagnostico,
-    summary: "Lectura técnica del activo para priorizar inversiones y mantenimiento.",
-    isExample: true,
-  },
-  {
-    title: "[PROYECTO DE EJEMPLO] Equipos para movimiento de tierra",
-    slug: "equipos-movimiento-de-tierra",
-    category: "Alquiler",
-    portfolioCategory: "Vías",
-    location: "Bogotá D.C., Colombia",
-    image: equipos,
-    summary: "Maquinaria disponible para mantener el ritmo de cada frente de trabajo.",
+    location: "[DATOS PENDIENTES]",
+    image: estructuraHidraulica,
+    summary: "Registro visual de una estructura hidráulica en fase de ejecución.",
     isExample: true,
   },
 ];
 import type { ImageMetadata } from "astro";
-import centroLogistico from "../assets/projects/centro-logistico.svg";
-import corredorVial from "../assets/projects/corredor-vial.svg";
-import diagnostico from "../assets/projects/diagnostico.svg";
-import equipos from "../assets/projects/equipos.svg";
+import alcantarillado from "../assets/projects/sistema-de-alcantarillado/cover.jpg";
+import edificaciones from "../assets/projects/edificaciones/cover.jpg";
+import estructuraHidraulica from "../assets/projects/estructura-hidraulica/cover.jpg";
+import viasEspacioPublico from "../assets/projects/vias-y-espacio-publico/cover.jpg";
